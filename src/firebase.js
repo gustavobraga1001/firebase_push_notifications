@@ -34,10 +34,15 @@ export const requestForToken = () => {
     });
 };
 
+// Listener para mensagens em primeiro plano
 export const onMessageListener = () =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     onMessage(messaging, (payload) => {
-      console.log("payload", payload);
-      resolve(payload);
+      console.log("Mensagem recebida em primeiro plano: ", payload);
+      if (payload ) {
+        resolve(payload);
+      } else {
+        reject("Payload sem notificação");
+      }
     });
   });
